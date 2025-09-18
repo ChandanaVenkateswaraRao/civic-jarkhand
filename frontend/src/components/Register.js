@@ -14,7 +14,7 @@ const Register = () => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } };
       const { data } = await axios.post(
-        'http://localhost:5000/api/auth/register',
+        'https://civic-jarkhand.onrender.com/api/auth/register',
         { name, email, password },
         config
       );
