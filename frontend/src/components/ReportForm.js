@@ -2,22 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import API from '../api';
-import { FaSync, FaCheckCircle, FaFileUpload, FaHeading } from 'react-icons/fa';
+import { FaFileUpload, FaHeading } from 'react-icons/fa';
 
 const ReportForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Pothole'); // Default category
   const [location, setLocation] = useState(null);
-  
-  // --- STATE CHANGES ---
-  const [selectedFile, setSelectedFile] = useState(null); // State to hold the actual File object
-  const [photoPath, setPhotoPath] = useState(''); // State for the server path
-  // --- END OF STATE CHANGES ---
-
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [photo, setPhoto] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState('');
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,79 +22,46 @@ const ReportForm = () => {
           coordinates: [position.coords.longitude, position.coords.latitude],
         });
       },
-      (error) => {
-        console.error("Error fetching location: ", error);
-        toast.error('Please enable location services to submit a report.');
-      }
+      (error) => toast.error('Please enable location services.')
     );
   }, []);
 
-  const handleFileChange = async (e) => {
+  const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    // Reset state for new upload
-    setCategory('');
-    setPhotoPath('');
-    setSelectedFile(file); // *** SAVE THE FILE OBJECT ***
     setFileName(file.name);
-    setIsProcessing(true);
-    const toastId = toast.loading('Uploading and analyzing image...');
-
+    setIsUploading(true);
     const formData = new FormData();
     formData.append('image', file);
-    
     try {
-      const { data } = await API.post('/api/classify', formData, {
+      const { data } = await API.post('/api/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      
-      setCategory(data.category);
-      setPhotoPath(data.filePath); // Save the path returned from the backend
-
-      toast.success(`AI detected category: ${data.category}`, { id: toastId, duration: 4000 });
-
+      setPhoto(data); // `data` is the file path, e.g., "/uploads/image-123.jpg"
+      toast.success('Image uploaded successfully!');
     } catch (error) {
-      console.error(error);
-      toast.error('Could not analyze image. Please try another one.', { id: toastId });
+      toast.error('Image upload failed.');
       setFileName('');
-      setSelectedFile(null);
     } finally {
-      setIsProcessing(false);
+      setIsUploading(false);
     }
   };
 
-  // --- SUBMIT HANDLER CHANGES ---
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!location) {
-      toast.error('Location data is not yet available.');
+      toast.error('Location data is not yet available. Please wait a moment.');
       return;
     }
-    if (!category || !photoPath) {
-      toast.error('Please upload an image and wait for AI analysis.');
-      return;
-    }
-    
-    const toastId = toast.loading('Submitting your report...');
-    
+    const toastId = toast.loading('Submitting report...');
     try {
-      // We send the path we got from the AI classification step
-      await API.post('/api/reports', { 
-        title, 
-        description, 
-        category, 
-        location, 
-        photo: photoPath // Use the saved path
-      });
+      await API.post('/api/reports', { title, description, category, location, photo });
       toast.success('Report submitted successfully!', { id: toastId });
       navigate('/dashboard');
     } catch (error) {
-      console.error('Report submission failed', error);
       toast.error('Failed to submit report.', { id: toastId });
     }
   };
-  // --- END OF SUBMIT HANDLER CHANGES ---
 
   return (
     <div className="form-container">
@@ -114,7 +75,7 @@ const ReportForm = () => {
               type="text" 
               value={title} 
               onChange={(e) => setTitle(e.target.value)} 
-              placeholder="e.g., Large pothole on Main Street"
+              placeholder="e.g., Large pothole on Main Street" // Add placeholder
               required 
             />
           </div>
@@ -124,45 +85,41 @@ const ReportForm = () => {
           <textarea 
             value={description} 
             onChange={(e) => setDescription(e.target.value)} 
-            placeholder="Provide any additional details..."
+            placeholder="Provide any additional details..." // Add placeholder
             required 
           />
         </div>
-        
         <div className="form-group">
-          <label>Issue Photo</label>
+          <label>Category</label>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="Pothole">Pothole</option>
+            <option value="Streetlight">Streetlight</option>
+            <option value="Trash">Trash</option>
+            <option value="Water Leakage">Water Leakage</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Issue Photo (Optional)</label>
           <label htmlFor="image-file" className="file-upload-label">
             <FaFileUpload />
-            <span>{fileName ? "Change Photo" : "Select Photo"}</span>
+            <span>{fileName || "Select Photo"}</span>
           </label>
-          {fileName && !isProcessing && <p className="file-name-display">{fileName}</p>}
+          {isUploading && <p className="file-name-display">Uploading...</p>}
           <input 
             type="file" 
-            id="image-file"
-            onChange={handleFileChange}
+            id="image-file" 
+            onChange={uploadFileHandler} 
             accept="image/png, image/jpeg"
-            style={{ display: 'none' }}
+            style={{ display: 'none' }} 
           />
         </div>
 
-        {isProcessing && (
-          <div className="processing-indicator">
-            <FaSync className="processing-icon" />
-            <p>AI is analyzing your image...</p>
-          </div>
-        )}
-
-        {category && !isProcessing && (
-          <div className="category-display">
-            <FaCheckCircle className="category-icon" />
-            <p><strong>Detected Category:</strong> {category}</p>
-          </div>
-        )}
-
-        {location && <p style={{ textAlign: 'center', color: 'var(--secondary-color)' }}>Location captured successfully!</p>}
+        {/* Add location captured message for better UX */}
+        {location && <p style={{ textAlign: 'center', color: 'var(--secondary-color)', marginTop: '-1rem', marginBottom: '1.5rem' }}>Location captured successfully!</p>}
         
-        <button type="submit" className="btn" disabled={isProcessing || !category}>
-          {isProcessing ? 'Processing...' : 'Submit Report'}
+        <button type="submit" className="btn" disabled={isUploading}>
+          {isUploading ? 'Uploading...' : 'Submit Report'}
         </button>
       </form>
     </div>

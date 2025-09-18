@@ -1,49 +1,33 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs');
-const User = require('./models/User');
-const connectDB = require('./config/db');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import User from './models/User.js';
+import connectDB from './config/db.js';
 
-// Load env vars
 dotenv.config();
 
-// Connect to database
-connectDB();
-
 const createAdmin = async () => {
+  await connectDB();
   try {
-    // Check if an admin user already exists
-    const adminExists = await User.findOne({ role: 'admin' });
+    const adminExists = await User.findOne({ email: process.env.ADMIN_EMAIL });
     if (adminExists) {
-      console.log('Admin user already exists. Seeder script aborted.');
+      console.log('Admin user already exists.');
       process.exit();
     }
-
-    // Check if ADMIN_EMAIL and ADMIN_PASSWORD are set in .env
-    if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
-        console.error('Please set ADMIN_EMAIL and ADMIN_PASSWORD in your .env file.');
-        process.exit(1);
-    }
-    
-    // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, salt);
-
-    // Create the admin user
     await User.create({
-      name: 'Admin',
+      name: 'Admin User',
       email: process.env.ADMIN_EMAIL,
       password: hashedPassword,
       role: 'admin',
     });
-
-    console.log('✅ Admin user created successfully!');
+    console.log('Admin user created successfully!');
     process.exit();
   } catch (error) {
-    console.error(`Error creating admin user: ${error.message}`);
+    console.error(`Error: ${error.message}`);
     process.exit(1);
   }
 };
 
-// The script will run this function when executed
 createAdmin();

@@ -1,15 +1,16 @@
 import express from 'express';
-const router = express.Router();
 import {
   createReport,
   getReports,
   getReportById,
   updateReportStatus,
-} from '../controllers/reportController.js'; // <-- Add .js
-import { protect, admin } from '../middleware/authMiddleware.js'; // <-- Add .js
-import { getWorkerReports } from '../controllers/reportController.js';
+  getWorkerReports
+} from '../controllers/reportController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
-router.route('/').post(protect, createReport).get(protect, getReports);
+const router = express.Router();
+
+router.route('/').get(protect, getReports).post(protect, createReport);
 router.get('/worker', protect, getWorkerReports);
 router.route('/:id').get(protect, getReportById).put(protect, admin, updateReportStatus);
 

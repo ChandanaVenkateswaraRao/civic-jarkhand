@@ -6,21 +6,15 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
-// OLD LINE: exports.registerUser = async (req, res) => {
-// NEW LINE vvv
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'User with this email already exists' });
     }
-
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
     const user = await User.create({ name, email, password: hashedPassword });
 
     if (user) {
@@ -39,10 +33,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// @desc    Authenticate user & get token
-// @route   POST /api/auth/login
-// OLD LINE: exports.loginUser = async (req, res) => {
-// NEW LINE vvv
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -63,46 +53,23 @@ export const loginUser = async (req, res) => {
   }
 };
 
-
-
-
-// NEW FUNCTION: To be used by Admins to create worker accounts
 export const createWorker = async (req, res) => {
   const { name, email, password, assignedCategory } = req.body;
-
-  // Basic validation
-  if (!name || !email || !password || !assignedCategory) {
-    return res.status(400).json({ message: 'Please provide all required fields.' });
-  }
-
   try {
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: 'A user with this email already exists.' });
     }
-
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
     const worker = await User.create({
       name,
       email,
       password: hashedPassword,
-      role: 'worker', // Set the role explicitly
-      assignedCategory, // Assign their specialty
+      role: 'worker',
+      assignedCategory,
     });
-
-    if (worker) {
-      res.status(201).json({
-        _id: worker._id,
-        name: worker.name,
-        email: worker.email,
-        role: worker.role,
-        assignedCategory: worker.assignedCategory,
-      });
-    } else {
-      res.status(400).json({ message: 'Invalid worker data provided.' });
-    }
+    res.status(201).json(worker);
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
   }
