@@ -1,10 +1,10 @@
-/* --- 1. Root Variables & Global Styles --- */
+/* 
 :root {
-  --primary-color: #0d47a1; /* Deeper, more professional blue */
+  --primary-color: #0d47a1;
   --primary-light: #1976d2;
-  --secondary-color: #2e7d32; /* Deeper, richer green */
+  --secondary-color: #2e7d32; 
   --secondary-dark: #1b5e20;
-  --background-color: #f8f9fa; /* Lighter, cleaner background */
+  --background-color: #f8f9fa;
   --surface-color: #ffffff;
   --text-primary: #212529;
   --text-secondary: #6c757d;
@@ -33,7 +33,7 @@ body {
   padding: 2.5rem;
 }
 
-/* --- 2. Navbar --- */
+
 .navbar {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: saturate(180%) blur(10px);
@@ -101,7 +101,7 @@ body {
   margin-right: 1rem;
 }
 
-/* --- 3. Forms & Buttons --- */
+
 .form-container {
   background: var(--surface-color);
   padding: 2.5rem;
@@ -224,7 +224,7 @@ body {
   text-decoration: underline;
 }
 
-/* --- 4. Dashboard & Report Cards --- */
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
@@ -338,7 +338,7 @@ body {
 .status-InProgress { background-color: #3b82f6; }
 .status-Resolved { background-color: #10b981; }
 
-/* --- 5. Map --- */
+
 .map-container {
   height: 450px;
   width: 100%;
@@ -348,7 +348,7 @@ body {
   border: 1px solid var(--border-color);
 }
 
-/* --- 6. Image Modal --- */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -394,7 +394,7 @@ body {
   transform: scale(1.2);
 }
 
-/* --- 7. Home Page --- */
+
 .hero-section {
   text-align: center;
   padding: 5rem 2rem;
@@ -534,7 +534,7 @@ body {
   color: var(--text-secondary);
 }
 
-/* --- 8. Enhanced Report Form (AI UI) --- */
+
 .file-upload-label {
   display: flex;
   align-items: center;
@@ -620,7 +620,7 @@ body {
 }
 
 
-/* --- 9. Animations & Utility Classes --- */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -670,3 +670,356 @@ body {
 .empty-state p {
     color: var(--text-secondary);
 }
+
+ */
+
+
+/*
+  ======================================================================
+  ===== CIVIC ISSUE TRACKER - SUNRISE ORANGE & BLACK THEME       =====
+  ======================================================================
+  Features: Light/Dark Mode, Responsive Layout, Bold Theming
+*/
+
+/* --- 1. Root Variables & Global Styles --- */
+:root {
+  /* --- Light Mode (Default) - Sunrise Orange & Black --- */
+  --brand-orange: #f97316;
+  --brand-orange-light: #fb923c;
+  --brand-black: #111827;
+  --primary-color: var(--brand-orange);
+  --primary-light: var(--brand-orange-light);
+  --secondary-color: #4338ca; /* Deep Indigo for a cool accent */
+  --secondary-dark: #312e81;
+  --background-color: #f9fafb; /* Very light gray */
+  --surface-color: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --font-family: 'Poppins', sans-serif;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Dark Mode --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-orange: #fb923c; /* Brighter orange for dark mode */
+    --brand-orange-light: #fdba74;
+    --secondary-color: #6d28d9; /* Vivid Purple for accent */
+    --secondary-dark: #5b21b6;
+    --background-color: #111827; /* Near black */
+    --surface-color: #1f2937;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --border-color: #374151;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: var(--font-family); margin: 0; background-color: var(--background-color); color: var(--text-primary); line-height: 1.7; }
+.container { max-width: 1280px; margin: 0 auto; padding: 2.5rem 1rem; } /* Added padding for mobile */
+
+
+//* --- 2. Navbar (Now Fully Responsive) --- */
+.navbar {
+  /* --- Base Styles --- */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(10px);
+  padding: 1rem 1.5rem; /* Mobile-first padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+/* Dark mode background */
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    background: hsla(217, 33%, 17%, 0.75);
+  }
+}
+
+.navbar-logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--brand-orange);
+  text-decoration: none;
+  z-index: 1001; /* Ensure logo is always above the mobile menu overlay */
+}
+
+/* --- Desktop Menu Styles --- */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+}
+.navbar-links a, .navbar-links .logout-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap; /* Prevent links from wrapping */
+}
+.navbar-links a:hover, .navbar-links .logout-btn:hover {
+  background-color: #e9ecef;
+  color: var(--primary-color);
+}
+@media (prefers-color-scheme: dark) {
+  .navbar-links a:hover, .navbar-links .logout-btn:hover {
+    background-color: var(--surface-color);
+  }
+}
+/* Styles for primary button and welcome text are fine */
+.navbar-links a.nav-link--primary { /* ... */ }
+.navbar-welcome { /* ... */ }
+
+
+/* --- Mobile Menu Specific Styles --- */
+.mobile-menu-toggle {
+  display: none; /* Hidden on desktop by default */
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  z-index: 1001; /* Keep it above the overlay */
+  padding: 0.5rem;
+  line-height: 1;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--surface-color);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Start offscreen to the right */
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  visibility: hidden; /* Hide when closed for accessibility */
+}
+.mobile-menu-overlay.open {
+  transform: translateX(0);
+  visibility: visible; /* Make visible when open */
+}
+
+.mobile-menu-links {
+  flex-direction: column; /* Stack links vertically */
+  gap: 2rem;
+  text-align: center;
+}
+.mobile-menu-links a, .mobile-menu-links .logout-btn {
+  font-size: 1.5rem; /* Make links larger for easy tapping */
+}
+
+
+/*
+   ===============================================================
+   ===== THE CRITICAL RESPONSIVE BREAKPOINT                  =====
+   ===============================================================
+*/
+
+/* On screens 850px wide or less, the mobile styles take over. */
+@media (max-width: 850px) {
+  .desktop-menu {
+    display: none; /* HIDE the desktop links */
+  }
+  .mobile-menu-toggle {
+    display: block; /* SHOW the hamburger icon */
+  }
+}
+
+/* For screens larger than 850px */
+@media (min-width: 851px) {
+  .mobile-menu-overlay {
+    /* Ensure the mobile overlay is never visible on desktop */
+    display: none;
+  }
+}
+
+/* --- 3. Forms & Buttons --- */
+.form-container h1, .form-container h2 {
+  color: var(--brand-black);
+}
+@media (prefers-color-scheme: dark) {
+  .form-container h1, .form-container h2 {
+    color: var(--brand-orange);
+  }
+}
+.input-group:focus-within .input-icon {
+  color: var(--brand-orange);
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--brand-orange);
+  box-shadow: 0 0 0 4px hsla(25, 95%, 53%, 0.1); /* Orange glow */
+}
+.btn {
+  background: linear-gradient(45deg, var(--brand-orange), var(--brand-orange-light));
+}
+.btn-secondary {
+  background: linear-gradient(45deg, var(--secondary-color), var(--secondary-dark));
+}
+
+/* --- 4. Dashboard & Report Cards --- */
+.report-card:hover {
+  border-color: var(--brand-orange); /* Highlight with orange on hover */
+}
+.card-header h3 {
+  color: var(--brand-black);
+}
+@media (prefers-color-scheme: dark) {
+  .card-header h3 { color: var(--text-primary); }
+}
+.card-body .icon {
+  color: var(--brand-orange-light);
+}
+
+/* --- 5. Home Page --- */
+.hero-content h1 {
+  color: var(--brand-black);
+}
+@media (prefers-color-scheme: dark) {
+  .hero-content h1 {
+    color: var(--text-primary);
+  }
+}
+.section-title {
+  color: var(--brand-black);
+}
+@media (prefers-color-scheme: dark) {
+  .section-title { color: var(--text-primary); }
+}
+.section-title::after {
+  background-color: var(--brand-orange);
+}
+.choice-icon {
+  color: var(--brand-orange);
+}
+.step-icon {
+  color: var(--secondary-color);
+}
+.step-card h3 {
+  color: var(--brand-black);
+}
+@media (prefers-color-scheme: dark) {
+  .step-card h3 { color: var(--text-primary); }
+}
+
+/* --- 6. Enhanced Report Form UI --- */
+.file-upload-label {
+  color: var(--brand-orange);
+}
+.file-upload-label:hover {
+  border-color: var(--brand-orange);
+}
+.processing-icon {
+  color: var(--brand-orange);
+}
+.category-display {
+  border: 1px solid var(--brand-orange);
+  background-color: hsla(25, 95%, 53%, 0.08);
+}
+.category-icon {
+  color: var(--brand-orange);
+}
+.category-display p {
+  color: #c2410c; /* Darker orange text */
+}
+@media (prefers-color-scheme: dark) {
+  .category-display p { color: var(--brand-orange-light); }
+}
+
+/* --- 7. Animations & Utilities --- */
+.spinner {
+  border-top-color: var(--brand-orange);
+}
+/* --- Other keyframes and utility classes are fine --- */
+
+/*
+   ======================================================================
+   ===== RESPONSIVE DESIGN & DEVICE FRIENDLY STYLES             =====
+   ======================================================================
+*/
+
+/* For smaller tablets and large phones */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .form-container {
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+  body {
+    line-height: 1.6;
+  }
+  .container {
+    padding: 1rem;
+  }
+  .navbar-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .navbar-links a, .navbar-links .logout-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  .hero-section {
+    padding: 3rem 1rem;
+    margin-bottom: 2rem;
+  }
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .choice-container, .steps-container {
+    grid-template-columns: 1fr; /* Stack cards on mobile */
+  }
+}
+
+
+/* --- PRESERVING YOUR ORIGINAL LAYOUT STRUCTURE --- */
+/* The layout classes from your previous CSS are respected. */
+*,*::before,*::after{box-sizing:border-box}body{font-family:var(--font-family);margin:0;background-color:var(--background-color);color:var(--text-primary);line-height:1.7}.container{max-width:1280px;margin:0 auto;padding:2.5rem}.navbar{background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(10px);padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}.navbar-logo{font-size:1.6rem;font-weight:700;text-decoration:none}.navbar-links{list-style:none;display:flex;align-items:center;gap:1rem;margin:0}.navbar-links a,.navbar-links .logout-btn{padding:.6rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:500;font-family:var(--font-family);font-size:.95rem;border:none;background:0 0;cursor:pointer;color:var(--text-secondary);transition:all .2s ease-in-out}.navbar-links a:hover,.navbar-links .logout-btn:hover{background-color:#e9ecef}.navbar-links a.nav-link--primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.navbar-welcome{font-weight:500;font-size:.95rem;margin-right:1rem}.form-container{background:var(--surface-color);padding:2.5rem;border-radius:12px;max-width:500px;margin:4rem auto;animation:scaleUp .4s ease-out}.form-container h1,.form-container h2{text-align:center;margin-bottom:2rem;font-weight:600}.form-group{margin-bottom:1.5rem}.form-group label{display:block;margin-bottom:.5rem;font-weight:500;color:var(--text-secondary)}.input-group{position:relative}.input-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.6;transition:color .2s ease-in-out,opacity .2s ease-in-out}.form-group input,.form-group select,.form-group textarea{width:100%;padding:.8rem 1rem;font-size:1rem;font-family:var(--font-family);background-color:#f8f9fa;border-radius:8px;box-sizing:border-box;transition:border-color .2s,box-shadow .2s}.input-group input{padding-left:45px}.input-group:focus-within .input-icon{opacity:1}.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:0}.btn{display:inline-block;width:100%;padding:.8rem 1.5rem;font-size:1rem;font-weight:600;color:#fff;border:none;border-radius:8px;cursor:pointer;text-align:center;text-decoration:none;transition:transform .2s ease-out,box-shadow .2s ease-out}.btn:hover{transform:translateY(-3px)}.btn:disabled{opacity:.6;cursor:not-allowed;transform:translateY(0)}.form-footer{text-align:center;margin-top:1.5rem}.form-footer a{font-weight:500;text-decoration:none}.form-footer a:hover{text-decoration:underline}.dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}.dashboard-header h1{margin:0}.action-bar{display:flex;gap:1rem;align-items:center;background:var(--surface-color);padding:1rem;border-radius:8px}.action-bar label{font-weight:500}.action-bar select{padding:.5rem;border-radius:6px;min-width:150px}.report-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem}.report-card{background:var(--surface-color);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease-out,box-shadow .2s ease-out}.report-card:hover{transform:translateY(-6px)}.card-image{width:100%;height:200px;object-fit:cover;cursor:pointer;border-radius:12px 12px 0 0}.card-header{padding:1.25rem;border-bottom:1px solid var(--border-color)}.card-header h3{margin:0;font-size:1.2rem}.card-body{padding:1.25rem;flex-grow:1}.card-body p{margin:0 0 1rem;display:flex;align-items:center;gap:.75rem}.card-body .icon{font-size:1.2rem}.card-footer{background:#fcfcfc;padding:1rem 1.25rem;border-top:1px solid var(--border-color);display:flex;flex-direction:column;gap:.5rem}.card-footer label{font-weight:500;font-size:.9rem}.status-badge{padding:.25rem .75rem;border-radius:16px;color:#fff;font-weight:500;font-size:.8rem;text-align:center;white-space:nowrap}.status-Submitted{background-color:#f59e0b}.status-InProgress{background-color:#3b82f6}.status-Resolved{background-color:#10b981}.map-container{height:450px;width:100%;margin-bottom:2rem;border-radius:12px}.modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:rgba(0,0,0,.85);display:flex;justify-content:center;align-items:center;z-index:2000;padding:20px;animation:fadeIn .3s ease}.modal-content{position:relative;max-width:90vw;max-height:90vh;display:flex;animation:scaleUp .3s ease}.modal-image{width:100%;height:100%;object-fit:contain;border-radius:8px}.modal-close{position:absolute;top:-40px;right:-20px;background:0 0;border:none;color:#fff;font-size:2rem;cursor:pointer;transition:transform .2s}.modal-close:hover{transform:scale(1.2)}.hero-section{text-align:center;padding:5rem 2rem;border-radius:16px;margin-bottom:4rem}.hero-content h1{font-size:3.2rem;line-height:1.2;margin-bottom:1rem}.hero-subtitle{font-size:1.1rem;max-width:700px;margin:0 auto 2rem}.btn-cta{font-size:1.2rem;padding:.8rem 2.5rem;width:auto;display:inline-block}.portals-section,.how-it-works-section,.mission-section{text-align:center;padding:3rem 1rem;margin-bottom:2rem}.section-title{font-size:2rem;margin-bottom:3rem;position:relative;display:inline-block}.section-title::after{content:"";position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:60px;height:4px;border-radius:2px}.choice-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:1100px;margin:0 auto}.choice-card{background:var(--surface-color);padding:2.5rem;border-radius:12px;text-decoration:none;transition:transform .2s ease-out,box-shadow .2s ease-out,border-color .2s ease-out}.choice-card:hover{transform:translateY(-8px)}.choice-icon{font-size:3rem;margin-bottom:1rem}.choice-card h2{font-size:1.5rem;margin-bottom:.5rem}.steps-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;max-width:1000px;margin:0 auto}.step-card{background:var(--surface-color);padding:2rem;border-radius:12px}.step-icon{font-size:3rem;margin-bottom:1.5rem}.step-card h3{font-size:1.4rem;margin-bottom:.5rem}.mission-section{border-radius:12px}.mission-section p{max-width:800px;margin:0 auto;font-size:1.1rem;line-height:1.8}.file-upload-label{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:1rem;font-size:1rem;font-weight:500;background-color:#f8f9fa;border-radius:8px;cursor:pointer;transition:background-color .2s,border-color .2s}.file-upload-label:hover{background-color:#e9ecef}.file-name-display{font-size:.9rem;text-align:center;margin-top:.75rem;font-style:italic}.processing-indicator,.category-display{text-align:center;margin:1.5rem 0;padding:1rem;border-radius:8px;background-color:#f8f9fa}.processing-indicator p,.category-display p{margin:0;font-weight:500}.processing-icon{font-size:1.5rem;margin-bottom:.5rem}.category-display p{display:flex;align-items:center;justify-content:center}.form-header-with-close{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.form-header-with-close h2{margin:0}.close-form-btn{background:0 0;border:none;font-size:1.5rem;cursor:pointer;padding:5px;line-height:1}.close-form-btn:hover{}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes scaleUp{from{transform:scale(.95);opacity:0}to{opacity:1}}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.spinner-container{display:flex;justify-content:center;align-items:center;padding:4rem}.spinner{width:50px;height:50px;border-radius:50%}.empty-state{text-align:center;padding:4rem;border-radius:12px}.empty-state-icon{font-size:4rem;margin-bottom:1.5rem}.empty-state h3{font-size:1.5rem;margin:0}

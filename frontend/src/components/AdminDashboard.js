@@ -194,7 +194,7 @@ const AdminDashboard = () => {
             {filteredReports.length > 0 ? (
               <div className="report-grid">
                 {filteredReports.map((report) => (
-                  <div key={report._id} className="report-card">
+                  <div key={report._id} className="report-card" >
                     {report.photo && (
                       <img 
                         src={`${process.env.REACT_APP_API_URL}${report.photo}`} 
