@@ -30,14 +30,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/upload", uploadRoutes);
 
-const __dirname = path.resolve();
-
-// Static Folder for Uploads
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-
-
-
-
 // Simple Root Route for API Health Check
 app.get("/", (req, res) => {
   res.send("API is running...");

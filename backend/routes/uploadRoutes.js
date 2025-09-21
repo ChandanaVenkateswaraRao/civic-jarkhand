@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from '../upload.js';
-import { protect } from '../middleware/authMiddleware.js'; // <-- THIS IS THE FIX
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -16,8 +16,7 @@ router.post('/', protect, upload.single('image'), (req, res) => {
   if (req.file) {
     // The 'upload' middleware saves the file and adds a 'file' object to the request.
     // We send back the public URL path to the uploaded file.
-    const filePath = `/${req.file.path.replace(/\\/g, "/")}`;
-    res.status(201).send(filePath);
+    res.status(201).send(req.file.path);
   } else {
     // This case would typically only be hit if something went wrong with multer.
     res.status(400).send({ message: 'No file was uploaded.' });
