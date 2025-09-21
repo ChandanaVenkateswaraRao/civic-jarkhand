@@ -167,10 +167,10 @@ const WorkerDashboard = () => {
                 <div key={report._id} className="report-card">
                   {report.photo && (
                     <img 
-                      src={`${process.env.REACT_APP_API_URL}${report.photo}`} 
+                      src={report.photo} 
                       alt={report.title} 
                       className="card-image"
-                      onClick={() => setSelectedImage(`${process.env.REACT_APP_API_URL}${report.photo}`)}
+                      onClick={() => setSelectedImage(report.photo)}
                     />
                   )}
                   <div className="card-header">
