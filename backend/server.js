@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import connectDB from "./config/db.js";
-
+// import { OpenAI } from 'openai';
 import authRoutes from "./routes/authRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
@@ -16,6 +16,8 @@ const app = express();
 
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors());
+
+
 app.use(express.json());
 
 // API Routes
@@ -27,6 +29,9 @@ const __dirname = path.resolve();
 
 // Static Folder for Uploads
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+
+
 
 // Simple Root Route for API Health Check
 app.get("/", (req, res) => {
