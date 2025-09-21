@@ -3,7 +3,7 @@ import axios from 'axios'; // ✅ you were using axios but hadn’t imported it
 import Spinner from './Spinner';
 import toast from 'react-hot-toast';
 import { FaMedal } from 'react-icons/fa';
-
+import API from '../api';
 const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ const Leaderboard = () => {
     const fetchLeaderboard = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get("http://localhost:5000/api/reports/leaderboard");
+         const { data } = await API.get('/reports/leaderboard');
 
         // ✅ add points dynamically
         const leaderboardWithPoints = data.map(user => ({
