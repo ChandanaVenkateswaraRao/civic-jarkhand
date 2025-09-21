@@ -15,6 +15,7 @@ import Leaderboard from './components/Leaderboard';
 import Contact from './components/Contact';
 import Profile from './components/Profile'; // Import the Profile component
 import About from './components/About'; // Import the About component
+import Chatbot from './components/Chatbot'; // Import the Chatbot component
 function App() {
   return (
     <Router>
@@ -37,6 +38,7 @@ function App() {
           <Route path="/profile" element={<Profile />} /> {/* Add the Profile route */}
         </Routes>
       </main>
+      <Chatbot /> {/* Render Chatbot here to make it visible on all pages */}
     </Router>
   );
 }

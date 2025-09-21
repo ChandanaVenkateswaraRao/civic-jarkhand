@@ -75,13 +75,25 @@ export const updateReportStatus = async (req, res) => {
   const { status } = req.body;
   try {
     const report = await Report.findById(req.params.id);
-    if (report) {
-      report.status = status;
-      const updatedReport = await report.save();
-      res.json(updatedReport);
-    } else {
-      res.status(404).json({ message: 'Report not found' });
+
+    if (!report) {
+      return res.status(404).json({ message: 'Report not found' });
     }
+
+    // Authorization check
+    if (req.user.role === 'worker') {
+      // Workers can only update reports in their assigned category
+      if (report.category !== req.user.assignedCategory) {
+        return res.status(403).json({ message: 'Not authorized to update this report' });
+      }
+    } else if (req.user.role !== 'admin') {
+      // Only admin or authorized worker can update
+      return res.status(403).json({ message: 'Not authorized to update reports' });
+    }
+
+    report.status = status;
+    const updatedReport = await report.save();
+    res.json(updatedReport);
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
   }

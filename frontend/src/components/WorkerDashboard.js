@@ -119,7 +119,7 @@ const WorkerDashboard = () => {
   // --- Fetch reports assigned to the logged-in worker ---
   const fetchWorkerReports = useCallback(async () => {
     try {
-      const { data } = await API.get('/api/reports/worker');
+      const { data } = await API.get('/reports/worker');
       setReports(data);
     } catch (error) {
       toast.error('Could not fetch your assigned reports.');
@@ -141,7 +141,7 @@ const WorkerDashboard = () => {
   const handleStatusChange = async (id, status) => {
     const toastId = toast.loading('Updating status...');
     try {
-      await API.put(`/api/reports/${id}`, { status });
+      await API.put(`/reports/${id}`, { status });
       toast.success('Status updated!', { id: toastId });
       fetchWorkerReports(); // Refresh
     } catch (error) {

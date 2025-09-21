@@ -23,7 +23,7 @@ const AdminLogin = () => {
 
     try {
       // 4. USE THE API SERVICE, not axios directly
-      const { data } = await API.post('/api/auth/login', { email, password });
+      const { data } = await API.post('/auth/login', { email, password });
 
       if (data.role === 'admin') {
         toast.success('Login successful! Redirecting...', { id: toastId });

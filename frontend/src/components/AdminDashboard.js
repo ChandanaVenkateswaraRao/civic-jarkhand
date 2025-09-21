@@ -121,7 +121,7 @@ const AdminDashboard = () => {
 
   const fetchReports = useCallback(async () => {
     try {
-      const { data } = await API.get('/api/reports');
+      const { data } = await API.get('/reports');
       setReports(data);
     } catch (error) { 
       toast.error('Failed to fetch reports.');
@@ -138,7 +138,7 @@ const AdminDashboard = () => {
   const handleStatusChange = async (id, status) => {
     const toastId = toast.loading('Updating status...');
     try {
-      await API.put(`/api/reports/${id}`, { status });
+      await API.put(`/reports/${id}`, { status });
       toast.success('Status updated successfully!', { id: toastId });
       fetchReports(); // Refresh the list to show the change
     } catch (error) { 

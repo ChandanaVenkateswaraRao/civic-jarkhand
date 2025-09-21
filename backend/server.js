@@ -2,7 +2,7 @@ import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import helmet from "helmet";
+// import helmet from "helmet"; // Temporarily commented out to test CORS
 import connectDB from "./config/db.js";
 // import { OpenAI } from 'openai';
 import authRoutes from "./routes/authRoutes.js";
@@ -14,9 +14,14 @@ connectDB();
 
 const app = express();
 
-app.use(helmet({ crossOriginResourcePolicy: false }));
-app.use(cors());
-
+// Configure CORS for specific origins and methods
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://lambent-torrone-e48537.netlify.app'], // Allow both local and deployed frontend URLs
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 

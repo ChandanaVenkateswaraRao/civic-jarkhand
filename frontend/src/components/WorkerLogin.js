@@ -21,7 +21,7 @@ const WorkerLogin = () => {
     const toastId = toast.loading('Signing in...');
 
     try {
-      const { data } = await API.post('/api/auth/login', { email, password });
+      const { data } = await API.post('/auth/login', { email, password });
 
       if (data.role === 'worker') {
         toast.success('Login successful! Redirecting...', { id: toastId });

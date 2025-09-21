@@ -26,7 +26,7 @@ router.get('/worker', protect, getWorkerReports);
 // --- Dynamic routes with parameters (like /:id) MUST come LAST ---
 
 // Matches GET /api/reports/someId and PUT /api/reports/someId
-router.route('/:id').get(protect, getReportById).put(protect, admin, updateReportStatus);
+router.route('/:id').get(protect, getReportById).put(protect, updateReportStatus);
 
 
 export default router;

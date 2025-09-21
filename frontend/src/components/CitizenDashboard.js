@@ -95,7 +95,7 @@ import { FaTags, FaClock, FaExclamationTriangle, FaClipboardList } from "react-i
 import ImageModal from "./ImageModal";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
-import Chatbot from "./Chatbot"; // Import Chatbot
+// import Chatbot from "./Chatbot"; // Import Chatbot
 
 const CitizenDashboard = () => {
   const [reports, setReports] = useState([]);
@@ -107,7 +107,7 @@ const CitizenDashboard = () => {
     const fetchReports = async () => {
       setLoading(true);
       try {
-        const { data } = await API.get("/api/reports");
+        const { data } = await API.get("/reports");
         setReports(data);
       } catch (error) {
         toast.error("Could not fetch your reports.");
@@ -179,7 +179,7 @@ const CitizenDashboard = () => {
       <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />
 
       {/* --- Chatbot Fixed Bottom-Right --- */}
-      <Chatbot />
+      {/* <Chatbot /> */}
     </div>
   );
 };

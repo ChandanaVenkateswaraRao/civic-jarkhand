@@ -124,7 +124,7 @@ const ReportForm = () => {
     formData.append('image', file);
 
     try {
-      const { data } = await API.post('/api/upload', formData, {
+      const { data } = await API.post('/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setPhoto(data);
@@ -150,7 +150,7 @@ const ReportForm = () => {
     }
     const toastId = toast.loading('Submitting report...');
     try {
-      await API.post('/api/reports', {
+      await API.post('/reports', {
         title,
         description,
         category,

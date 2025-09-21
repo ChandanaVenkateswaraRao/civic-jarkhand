@@ -23,7 +23,9 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL, // e.g., http://localhost:5000/api
+  baseURL: process.env.REACT_APP_API_URL && !process.env.REACT_APP_API_URL.endsWith('/api') 
+    ? `${process.env.REACT_APP_API_URL}/api` 
+    : process.env.REACT_APP_API_URL, 
 });
 
 API.interceptors.request.use((req) => {
@@ -33,8 +35,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const login = (formData) => API.post('/users/login', formData);
-export const register = (formData) => API.post('/users/register', formData);
+export const login = (formData) => API.post('/auth/login', formData);
+export const register = (formData) => API.post('/auth/register', formData);
 export const getCitizenReports = () => API.get('/reports');
 export const submitReport = (reportData) => API.post('/reports', reportData);
 export const getLeaderboard = () => API.get('/reports/leaderboard');
