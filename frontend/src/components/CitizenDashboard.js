@@ -6,7 +6,7 @@ import { FaTags, FaClock, FaExclamationTriangle, FaClipboardList } from 'react-i
 import ImageModal from './ImageModal';
 import Spinner from './Spinner'; // Import Spinner for loading state
 import toast from 'react-hot-toast'; // Import toast for error notifications
-
+import Leaderboard from './Leaderboard';
 const CitizenDashboard = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state

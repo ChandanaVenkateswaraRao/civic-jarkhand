@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa'; // Import hamburger and close icons
+import { FaBars, FaTimes, FaUserCircle } from 'react-icons/fa'; // Import hamburger, close, and user icons
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -9,6 +9,8 @@ const Navbar = () => {
 
   // State to manage the mobile menu's visibility
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // State to manage the profile dropdown's visibility
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   // Function to handle logging out a user
   const logoutHandler = () => {
@@ -17,10 +19,16 @@ const Navbar = () => {
     navigate('/'); // Redirect to the main home page
   };
 
+  // Function to toggle profile dropdown visibility
+  const toggleProfileDropdown = () => {
+    setShowProfileDropdown(prevState => !prevState);
+  };
+
   // An effect that runs whenever the page location changes (i.e., user navigates).
   // This ensures the mobile menu automatically closes when a link is clicked.
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setShowProfileDropdown(false); // Close dropdown on navigation
   }, [location]);
 
   return (
@@ -38,10 +46,25 @@ const Navbar = () => {
             // Links shown when a user IS logged in
             <>
               <li><span className="navbar-welcome">Welcome, {userInfo.name}</span></li>
+              <li><Link to="/about">About</Link></li>
+              {(userInfo.role === 'citizen' || userInfo.role === 'admin') && <li><Link to="/Leaderboard">Leaderboard</Link></li>}
               {userInfo.role === 'admin' && <li><Link to="/admin">Admin Dashboard</Link></li>}
               {userInfo.role === 'worker' && <li><Link to="/worker/dashboard">Worker Dashboard</Link></li>}
+  
               {userInfo.role === 'citizen' && <li><Link to="/dashboard">My Reports</Link></li>}
-              <li><button onClick={logoutHandler} className="logout-btn">Logout</button></li>
+              {userInfo.role === 'citizen' && <li><Link to="/contact">Contact Us</Link></li>}
+              
+              
+              {/* Profile Icon and Dropdown */}
+              <li className="profile-dropdown-container">
+                <FaUserCircle className="profile-icon" onClick={toggleProfileDropdown} />
+                {showProfileDropdown && (
+                  <div className="profile-dropdown">
+                    <Link to="/profile" onClick={() => { setShowProfileDropdown(false); setIsMobileMenuOpen(false); }}>Profile</Link>
+                    <button onClick={logoutHandler}>Logout</button>
+                  </div>
+                )}
+              </li>
             </>
           ) : (
             // Links shown when a user IS LOGGED OUT
@@ -72,9 +95,12 @@ const Navbar = () => {
         {userInfo ? (
             // Mobile links for a LOGGED IN user
             <>
+              {(userInfo.role === 'citizen' || userInfo.role === 'admin') && <li><Link to="/Leaderboard">Leaderboard</Link></li>}
               {userInfo.role === 'admin' && <li><Link to="/admin">Admin Dashboard</Link></li>}
               {userInfo.role === 'worker' && <li><Link to="/worker/dashboard">Worker Dashboard</Link></li>}
               {userInfo.role === 'citizen' && <li><Link to="/dashboard">My Reports</Link></li>}
+              <li><Link to="/about" onClick={() => { setIsMobileMenuOpen(false); setShowProfileDropdown(false); }}>About</Link></li>
+              <li><Link to="/profile" onClick={toggleProfileDropdown}>Profile</Link></li>
               <li><button onClick={logoutHandler} className="logout-btn">Logout</button></li>
             </>
           ) : (

@@ -11,4 +11,9 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+export const login = (formData) => API.post('/api/users/login', formData);
+export const register = (formData) => API.post('/api/users/register', formData);
+export const getCitizenReports = () => API.get('/api/reports/citizen');
+export const submitReport = (reportData) => API.post('/api/reports', reportData);
+export const getLeaderboard = () => API.get('/api/users/leaderboard');
 export default API;

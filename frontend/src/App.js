@@ -11,7 +11,10 @@ import CitizenDashboard from './components/CitizenDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import WorkerDashboard from './components/WorkerDashboard';
 import ReportForm from './components/ReportForm';
-
+import Leaderboard from './components/Leaderboard';
+import Contact from './components/Contact';
+import Profile from './components/Profile'; // Import the Profile component
+import About from './components/About'; // Import the About component
 function App() {
   return (
     <Router>
@@ -25,9 +28,13 @@ function App() {
           <Route path="/worker/login" element={<WorkerLogin />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<CitizenDashboard />} />
+          <Route path="/Leaderboard" element={<Leaderboard />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} /> {/* Add the About route */}
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/worker/dashboard" element={<WorkerDashboard />} />
           <Route path="/new-report" element={<ReportForm />} />
+          <Route path="/profile" element={<Profile />} /> {/* Add the Profile route */}
         </Routes>
       </main>
     </Router>

@@ -102,6 +102,149 @@ body {
 }
 
 
+/* Profile Dropdown Styles */
+.profile-dropdown-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.profile-icon {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.profile-icon:hover {
+  color: var(--primary-color);
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%; /* Position below the icon */
+  right: 0;
+  background-color: var(--surface-color);
+  box-shadow: var(--shadow-md);
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 150px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  border: 1px solid var(--border-color);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.profile-dropdown a, .profile-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  text-align: left;
+  color: var(--text-primary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.profile-dropdown a:hover, .profile-dropdown button:hover {
+  background-color: #e9ecef;
+  color: var(--primary-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .profile-icon:hover {
+    color: var(--primary-light);
+  }
+  .profile-dropdown a:hover, .profile-dropdown button:hover {
+    background-color: var(--surface-color);
+  }
+}
+
+/* Adjust desktop menu to accommodate new profile dropdown */
+.navbar-links.desktop-menu {
+  position: relative; /* For dropdown positioning */
+}
+
+/* Hide logout button on desktop since it's now in the dropdown */
+.navbar-links.desktop-menu .logout-btn {
+  display: none; 
+}
+
+
+/* Profile Page Styles */
+.profile-container {
+  padding: 3rem 1.5rem;
+  max-width: 800px;
+  margin: 3rem auto;
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.profile-container h1 {
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.profile-details {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 2rem;
+  display: inline-block; /* To center the block */
+  text-align: left;
+  max-width: 500px;
+  width: 100%;
+}
+
+.profile-details p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.profile-details p strong {
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .profile-container h1 {
+    color: var(--primary-light);
+  }
+  .profile-details p {
+    color: var(--text-primary);
+  }
+  .profile-details p strong {
+    color: var(--primary-light);
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 2rem 1rem;
+    margin: 2rem auto;
+  }
+  .profile-container h1 {
+    font-size: 2rem;
+  }
+  .profile-details {
+    padding: 1.5rem;
+  }
+  .profile-details p {
+    font-size: 1rem;
+  }
+}
+
+
 .form-container {
   background: var(--surface-color);
   padding: 2.5rem;
@@ -673,7 +816,6 @@ body {
 
  */
 
-
 /*
   ======================================================================
   ===== CIVIC ISSUE TRACKER - SUNRISE ORANGE & BLACK THEME       =====
@@ -838,25 +980,25 @@ body { font-family: var(--font-family); margin: 0; background-color: var(--backg
    ===============================================================
 */
 
-/* On screens 850px wide or less, the mobile styles take over. */
+
 @media (max-width: 850px) {
   .desktop-menu {
-    display: none; /* HIDE the desktop links */
+    display: none;
   }
   .mobile-menu-toggle {
-    display: block; /* SHOW the hamburger icon */
+    display: block;
   }
 }
 
-/* For screens larger than 850px */
+
 @media (min-width: 851px) {
   .mobile-menu-overlay {
-    /* Ensure the mobile overlay is never visible on desktop */
+   
     display: none;
   }
 }
 
-/* --- 3. Forms & Buttons --- */
+
 .form-container h1, .form-container h2 {
   color: var(--brand-black);
 }
@@ -879,9 +1021,9 @@ body { font-family: var(--font-family); margin: 0; background-color: var(--backg
   background: linear-gradient(45deg, var(--secondary-color), var(--secondary-dark));
 }
 
-/* --- 4. Dashboard & Report Cards --- */
+
 .report-card:hover {
-  border-color: var(--brand-orange); /* Highlight with orange on hover */
+  border-color: var(--brand-orange); 
 }
 .card-header h3 {
   color: var(--brand-black);
@@ -893,7 +1035,7 @@ body { font-family: var(--font-family); margin: 0; background-color: var(--backg
   color: var(--brand-orange-light);
 }
 
-/* --- 5. Home Page --- */
+
 .hero-content h1 {
   color: var(--brand-black);
 }
@@ -924,7 +1066,7 @@ body { font-family: var(--font-family); margin: 0; background-color: var(--backg
   .step-card h3 { color: var(--text-primary); }
 }
 
-/* --- 6. Enhanced Report Form UI --- */
+
 .file-upload-label {
   color: var(--brand-orange);
 }
@@ -942,25 +1084,19 @@ body { font-family: var(--font-family); margin: 0; background-color: var(--backg
   color: var(--brand-orange);
 }
 .category-display p {
-  color: #c2410c; /* Darker orange text */
+  color: #c2410c;
 }
 @media (prefers-color-scheme: dark) {
   .category-display p { color: var(--brand-orange-light); }
 }
 
-/* --- 7. Animations & Utilities --- */
+
 .spinner {
   border-top-color: var(--brand-orange);
 }
-/* --- Other keyframes and utility classes are fine --- */
 
-/*
-   ======================================================================
-   ===== RESPONSIVE DESIGN & DEVICE FRIENDLY STYLES             =====
-   ======================================================================
-*/
 
-/* For smaller tablets and large phones */
+
 @media (max-width: 768px) {
   .container {
     padding: 1.5rem;
@@ -987,7 +1123,7 @@ body { font-family: var(--font-family); margin: 0; background-color: var(--backg
   }
 }
 
-/* For mobile phones */
+
 @media (max-width: 480px) {
   body {
     line-height: 1.6;
@@ -1015,11 +1151,241 @@ body { font-family: var(--font-family); margin: 0; background-color: var(--backg
     font-size: 1rem;
   }
   .choice-container, .steps-container {
-    grid-template-columns: 1fr; /* Stack cards on mobile */
+    grid-template-columns: 1fr;
   }
 }
 
 
-/* --- PRESERVING YOUR ORIGINAL LAYOUT STRUCTURE --- */
-/* The layout classes from your previous CSS are respected. */
+
 *,*::before,*::after{box-sizing:border-box}body{font-family:var(--font-family);margin:0;background-color:var(--background-color);color:var(--text-primary);line-height:1.7}.container{max-width:1280px;margin:0 auto;padding:2.5rem}.navbar{background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(10px);padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-color);position:sticky;top:0;z-index:1000}.navbar-logo{font-size:1.6rem;font-weight:700;text-decoration:none}.navbar-links{list-style:none;display:flex;align-items:center;gap:1rem;margin:0}.navbar-links a,.navbar-links .logout-btn{padding:.6rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:500;font-family:var(--font-family);font-size:.95rem;border:none;background:0 0;cursor:pointer;color:var(--text-secondary);transition:all .2s ease-in-out}.navbar-links a:hover,.navbar-links .logout-btn:hover{background-color:#e9ecef}.navbar-links a.nav-link--primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.navbar-welcome{font-weight:500;font-size:.95rem;margin-right:1rem}.form-container{background:var(--surface-color);padding:2.5rem;border-radius:12px;max-width:500px;margin:4rem auto;animation:scaleUp .4s ease-out}.form-container h1,.form-container h2{text-align:center;margin-bottom:2rem;font-weight:600}.form-group{margin-bottom:1.5rem}.form-group label{display:block;margin-bottom:.5rem;font-weight:500;color:var(--text-secondary)}.input-group{position:relative}.input-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);opacity:.6;transition:color .2s ease-in-out,opacity .2s ease-in-out}.form-group input,.form-group select,.form-group textarea{width:100%;padding:.8rem 1rem;font-size:1rem;font-family:var(--font-family);background-color:#f8f9fa;border-radius:8px;box-sizing:border-box;transition:border-color .2s,box-shadow .2s}.input-group input{padding-left:45px}.input-group:focus-within .input-icon{opacity:1}.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:0}.btn{display:inline-block;width:100%;padding:.8rem 1.5rem;font-size:1rem;font-weight:600;color:#fff;border:none;border-radius:8px;cursor:pointer;text-align:center;text-decoration:none;transition:transform .2s ease-out,box-shadow .2s ease-out}.btn:hover{transform:translateY(-3px)}.btn:disabled{opacity:.6;cursor:not-allowed;transform:translateY(0)}.form-footer{text-align:center;margin-top:1.5rem}.form-footer a{font-weight:500;text-decoration:none}.form-footer a:hover{text-decoration:underline}.dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}.dashboard-header h1{margin:0}.action-bar{display:flex;gap:1rem;align-items:center;background:var(--surface-color);padding:1rem;border-radius:8px}.action-bar label{font-weight:500}.action-bar select{padding:.5rem;border-radius:6px;min-width:150px}.report-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem}.report-card{background:var(--surface-color);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease-out,box-shadow .2s ease-out}.report-card:hover{transform:translateY(-6px)}.card-image{width:100%;height:200px;object-fit:cover;cursor:pointer;border-radius:12px 12px 0 0}.card-header{padding:1.25rem;border-bottom:1px solid var(--border-color)}.card-header h3{margin:0;font-size:1.2rem}.card-body{padding:1.25rem;flex-grow:1}.card-body p{margin:0 0 1rem;display:flex;align-items:center;gap:.75rem}.card-body .icon{font-size:1.2rem}.card-footer{background:#fcfcfc;padding:1rem 1.25rem;border-top:1px solid var(--border-color);display:flex;flex-direction:column;gap:.5rem}.card-footer label{font-weight:500;font-size:.9rem}.status-badge{padding:.25rem .75rem;border-radius:16px;color:#fff;font-weight:500;font-size:.8rem;text-align:center;white-space:nowrap}.status-Submitted{background-color:#f59e0b}.status-InProgress{background-color:#3b82f6}.status-Resolved{background-color:#10b981}.map-container{height:450px;width:100%;margin-bottom:2rem;border-radius:12px}.modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:rgba(0,0,0,.85);display:flex;justify-content:center;align-items:center;z-index:2000;padding:20px;animation:fadeIn .3s ease}.modal-content{position:relative;max-width:90vw;max-height:90vh;display:flex;animation:scaleUp .3s ease}.modal-image{width:100%;height:100%;object-fit:contain;border-radius:8px}.modal-close{position:absolute;top:-40px;right:-20px;background:0 0;border:none;color:#fff;font-size:2rem;cursor:pointer;transition:transform .2s}.modal-close:hover{transform:scale(1.2)}.hero-section{text-align:center;padding:5rem 2rem;border-radius:16px;margin-bottom:4rem}.hero-content h1{font-size:3.2rem;line-height:1.2;margin-bottom:1rem}.hero-subtitle{font-size:1.1rem;max-width:700px;margin:0 auto 2rem}.btn-cta{font-size:1.2rem;padding:.8rem 2.5rem;width:auto;display:inline-block}.portals-section,.how-it-works-section,.mission-section{text-align:center;padding:3rem 1rem;margin-bottom:2rem}.section-title{font-size:2rem;margin-bottom:3rem;position:relative;display:inline-block}.section-title::after{content:"";position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:60px;height:4px;border-radius:2px}.choice-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:1100px;margin:0 auto}.choice-card{background:var(--surface-color);padding:2.5rem;border-radius:12px;text-decoration:none;transition:transform .2s ease-out,box-shadow .2s ease-out,border-color .2s ease-out}.choice-card:hover{transform:translateY(-8px)}.choice-icon{font-size:3rem;margin-bottom:1rem}.choice-card h2{font-size:1.5rem;margin-bottom:.5rem}.steps-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;max-width:1000px;margin:0 auto}.step-card{background:var(--surface-color);padding:2rem;border-radius:12px}.step-icon{font-size:3rem;margin-bottom:1.5rem}.step-card h3{font-size:1.4rem;margin-bottom:.5rem}.mission-section{border-radius:12px}.mission-section p{max-width:800px;margin:0 auto;font-size:1.1rem;line-height:1.8}.file-upload-label{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:1rem;font-size:1rem;font-weight:500;background-color:#f8f9fa;border-radius:8px;cursor:pointer;transition:background-color .2s,border-color .2s}.file-upload-label:hover{background-color:#e9ecef}.file-name-display{font-size:.9rem;text-align:center;margin-top:.75rem;font-style:italic}.processing-indicator,.category-display{text-align:center;margin:1.5rem 0;padding:1rem;border-radius:8px;background-color:#f8f9fa}.processing-indicator p,.category-display p{margin:0;font-weight:500}.processing-icon{font-size:1.5rem;margin-bottom:.5rem}.category-display p{display:flex;align-items:center;justify-content:center}.form-header-with-close{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.form-header-with-close h2{margin:0}.close-form-btn{background:0 0;border:none;font-size:1.5rem;cursor:pointer;padding:5px;line-height:1}.close-form-btn:hover{}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes scaleUp{from{transform:scale(.95);opacity:0}to{opacity:1}}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.spinner-container{display:flex;justify-content:center;align-items:center;padding:4rem}.spinner{width:50px;height:50px;border-radius:50%}.empty-state{text-align:center;padding:4rem;border-radius:12px}.empty-state-icon{font-size:4rem;margin-bottom:1.5rem}.empty-state h3{font-size:1.5rem;margin:0}
+
+
+
+/* --- 10. Leaderboard --- */
+.leaderboard-container {
+  animation: fadeSlideUp 0.6s ease-out;
+}
+
+.leaderboard-title {
+  text-align: center;
+  color: var(--brand-black);
+  margin-bottom: 2rem;
+}
+@media (prefers-color-scheme: dark) {
+  .leaderboard-title { color: var(--text-primary); }
+}
+
+.table-container {
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden; /* This is important for the rounded corners on the table */
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse; /* Removes space between cells */
+}
+
+.leaderboard-table th, .leaderboard-table td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.leaderboard-table th {
+  background-color: var(--background-color);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.leaderboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: hsla(25, 95%, 53%, 0.05); /* Faint orange on hover */
+}
+@media (prefers-color-scheme: dark) {
+  .leaderboard-table tbody tr:hover {
+    background-color: hsla(25, 95%, 53%, 0.1);
+  }
+}
+
+.rank-cell {
+  font-weight: 700;
+  color: var(--brand-orange);
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive table */
+@media (max-width: 600px) {
+  .leaderboard-table thead {
+    display: none; /* Hide headers on mobile */
+  }
+  .leaderboard-table, .leaderboard-table tbody, .leaderboard-table tr, .leaderboard-table td {
+    display: block;
+    width: 100%;
+  }
+  .leaderboard-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+  }
+  .leaderboard-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .leaderboard-table td:last-child {
+    border-bottom: none;
+  }
+  .leaderboard-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    width: calc(50% - 2rem);
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  /* Assign data-label in the component for this to work */
+}
+
+
+
+/* Navbar container */
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  padding: 0.8rem 1.5rem;
+  color: white;
+  position: fixed;      /* Fix navbar to top */
+  top: 0;               /* Align it at the very top */
+  left: 0;
+  width: 100%;          /* Full width */
+  z-index: 1000;        /* Stay above other content */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional shadow */
+}
+
+/* Add top padding to body/content so navbar doesn't cover it */
+body {
+  padding-top: 64px; /* adjust according to navbar height */
+}
+
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* Desktop links */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-links li a,
+.navbar-links li button {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-welcome {
+  margin-right: 1rem;
+  font-weight: 500;
+}
+
+/* Profile dropdown */
+.profile-dropdown-container {
+  position: relative;
+}
+.profile-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 2.2rem;
+  background: #333;
+  border-radius: 6px;
+  padding: 0.5rem;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-dropdown a,
+.profile-dropdown button {
+  color: white;
+  padding: 0.4rem;
+  text-align: left;
+  border: none;
+  background: none;
+}
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
+  background: #444;
+}
+
+/* Mobile toggle (hidden on desktop) */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Mobile overlay menu */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100vh;
+  background: #222;
+  padding-top: 4rem;
+  transition: left 0.3s ease-in-out;
+  z-index: 999;
+}
+.mobile-menu-overlay.open {
+  left: 0;
+}
+
+.mobile-menu-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-left: 1.5rem;
+}
+.mobile-menu-links li a,
+.mobile-menu-links li button {
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: none;
+}
+
+/* Responsive rules */
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+  }
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
