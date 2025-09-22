@@ -63,9 +63,20 @@ const ReportForm = () => {
       const ai = createAIInstance();
       const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-      const prompt = `Look at this image. Identify the primary issue from this list: 
-      Pothole, Streetlight, Trash, Water Leakage. 
-      If none are present or you are unsure, respond with "Other". Respond with only a single word.`;
+      const prompt = `You are an image analysis assistant. Your task is to classify the primary issue visible in the image into exactly ONE of these categories:
+
+- Pothole  
+- Streetlight  
+- Trash  
+- Water Leakage  
+
+If the image does not clearly show any of the above, or if you are uncertain, respond strictly with "Other".
+
+⚠️ Rules:
+- Respond with ONLY one word, exactly matching the category name.  
+- Do not add explanations, extra words, punctuation, or sentences.  
+- Examples of valid answers: "Pothole", "Trash", "Streetlight", "Water Leakage", "Other".  
+`;
 
       const result = await model.generateContent([
         prompt,
