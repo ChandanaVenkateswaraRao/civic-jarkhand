@@ -33,7 +33,7 @@ const CreateWorkerForm = ({ onFormClose }) => {
     }
     const toastId = toast.loading('Creating worker account...');
     try {
-      await API.post('/api/auth/worker', { name, email, password, assignedCategory });
+      await API.post('/auth/worker', { name, email, password, assignedCategory });
       toast.success('Worker created successfully!', { id: toastId });
       // Clear and close the form after successful creation
       setName('');
